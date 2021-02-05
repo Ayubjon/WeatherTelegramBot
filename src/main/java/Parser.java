@@ -14,9 +14,15 @@ public class Parser{
     }
 
 
-    public String[] getTemperature() throws Exception {
-        Document page = Jsoup.parse(new URL(url), 10000);
-        Elements days = page.select("div.main");
+    public String[] getTemperature() {
+        Document page;
+        Elements days;
+        try{
+            page = Jsoup.parse(new URL(url), 10000);
+            days = page.select("div.main");
+        } catch (Exception e) {
+            return new String[1];
+        }
 
         String[] data = new String[5];
 
@@ -32,14 +38,5 @@ public class Parser{
         }
 
         return data;
-    }
-
-    public static void main(String[] args) {
-        Parser par = new Parser("душанбе");
-        try{
-            par.getTemperature();
-        } catch(Exception e) {
-            System.out.println(e + "error");
-        }
     }
 }

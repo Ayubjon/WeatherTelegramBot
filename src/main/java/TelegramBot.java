@@ -1,20 +1,10 @@
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class TelegramBot extends TelegramLongPollingBot {
-    public static void main(String[] args) {
-        String s = "";
-        try{
-            TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-        } catch (TelegramApiException e){
-            e.printStackTrace();
-        }
-    }
 
     private void sendMessage(Message m, String text){
         SendMessage send = new SendMessage();

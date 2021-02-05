@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 import java.net.URL;
 
 public class Parser{
-    String url;
+    private String url;
 
     public Parser(String city) {
         url = "https://sinoptik.ua/погода-" + city;

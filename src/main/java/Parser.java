@@ -4,27 +4,23 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Parser{
-    private String url;
+    private final String url;
 
     public Parser(String city) {
         url = "https://sinoptik.ua/погода-" + city;
     }
 
 
-    public String[] getTemperature() {
-        Document page;
-        Elements days;
-        try{
-            page = Jsoup.parse(new URL(url), 10000);
-            days = page.select("div.main");
-        } catch (Exception e) {
-            return new String[1];
-        }
+    public String getTemperature() throws IOException {
+        Document page = Jsoup.parse(new URL(url), 10000);
+        Elements days = page.select("div.main");
 
-        String[] data = new String[5];
+        StringBuilder data = new StringBuilder();
 
         for(int i = 0; i < 5; ++i) {
             Element day = days.get(i);
@@ -33,10 +29,10 @@ public class Parser{
             String min = day.select("div.min").first().select("span").first().text();
             String max = day.select("div.max").first().select("span").first().text();
 
-            data[i] = date + " " + month + ": " + min + " - " + max;
-            System.out.println(data[i]);
+            data.append(date).append(" ").append(month).append(": ").append(min).append(" - ").append(max).append("\n");
+            //System.out.println(data);
         }
 
-        return data;
+        return data.toString();
     }
 }
